@@ -11,7 +11,7 @@ solocker = "j3JYCYaDNg1VRwGBywm6gf7QiQUQaEu8Xuxv2Sueoh4"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "/home/tid/.config/solana/id.json"
 
 [scripts]

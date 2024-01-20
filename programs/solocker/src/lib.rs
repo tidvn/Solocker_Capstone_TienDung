@@ -17,7 +17,7 @@ pub mod solocker {
         Ok(())
     }
     pub fn unlock(ctx: Context<Lock>) -> Result<()> {
-        if (ctx.accounts.lock_state.authority != *ctx.accounts.authority.key) {
+        if ctx.accounts.lock_state.authority != *ctx.accounts.authority.key {
             return Err(ErrorCode::Unauthorized.into());
         }
         let lock_state = &mut ctx.accounts.lock_state;
@@ -41,9 +41,10 @@ pub struct Lock<'info> {
     #[account(mut, has_one = authority)]
     pub lock_state: Account<'info, LockState>,
     #[account(signer)]
+    /// CHECK: This is not dangerous because we don't read or write from this account
     pub authority: AccountInfo<'info>,
 }
-
+/// CHECK
 #[account]
 pub struct LockState {
     pub is_open: bool,
