@@ -5,7 +5,7 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-solocker = "j3JYCYaDNg1VRwGBywm6gf7QiQUQaEu8Xuxv2Sueoh4"
+solocker = "9fusgSdzxMdmpiMY8cfPeEuzSUUAkC47Prxo7FMCzmPq"
 
 [registry]
 url = "https://api.apr.dev"

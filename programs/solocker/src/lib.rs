@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("j3JYCYaDNg1VRwGBywm6gf7QiQUQaEu8Xuxv2Sueoh4");
+declare_id!("9fusgSdzxMdmpiMY8cfPeEuzSUUAkC47Prxo7FMCzmPq");
 
 #[program]
 pub mod solocker {
@@ -28,7 +28,7 @@ pub mod solocker {
 
 #[derive(Accounts)]
 pub struct Initialize<'info> {
-    #[account(init, payer = authority, space = 8 + 8, seeds = [b"lock-state"], bump)]
+    #[account(init, payer = authority, space = 8 + 8 + 32, seeds = [b"lock-state"], bump)]
     pub lock_state: Account<'info, LockState>,
     #[account(mut)]
     pub authority: Signer<'info>,

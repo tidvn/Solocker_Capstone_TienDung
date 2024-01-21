@@ -32,20 +32,20 @@ describe("solocker", () => {
       console.log(e);
     }
 
-    const LockTransaction = await program.methods.lock().accounts(
-      {
-        lockState: accountPDA,
-        authority: wallet.publicKey
-      },
-    ).rpc();
-    console.log("Lock transaction signature: ", LockTransaction);
-    const UnlockTransaction = await program.methods.unlock().accounts(
-      {
-        lockState: accountPDA,
-        authority: wallet.publicKey
-      },
-    ).rpc();
-    console.log("Unlock transaction signature: ", UnlockTransaction);
+    // const LockTransaction = await program.methods.lock().accounts(
+    //   {
+    //     lockState: accountPDA,
+    //     authority: wallet.publicKey
+    //   },
+    // ).rpc();
+    // console.log("Lock transaction signature: ", LockTransaction);
+    // const UnlockTransaction = await program.methods.unlock().accounts(
+    //   {
+    //     lockState: accountPDA,
+    //     authority: wallet.publicKey
+    //   },
+    // ).rpc();
+    // console.log("Unlock transaction signature: ", UnlockTransaction);
 
     assert(accountPDA != null, "Account PDA is null");
 
