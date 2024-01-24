@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("9fusgSdzxMdmpiMY8cfPeEuzSUUAkC47Prxo7FMCzmPq");
+declare_id!("3xf2u5H4qGaQJbrW5gkcpE38NrXJN5Duru7wtdkjHbcX");
 
 #[program]
 pub mod solocker {
@@ -8,20 +8,15 @@ pub mod solocker {
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
         ctx.accounts.lock_state.is_open = false;
+        ctx.accounts.lock_state.authority = *ctx.accounts.authority.key;
         Ok(())
     }
     pub fn lock(ctx: Context<Lock>) -> Result<()> {
-        let lock_state = &mut ctx.accounts.lock_state;
-        lock_state.is_open = false;
-        lock_state.authority = *ctx.accounts.authority.key;
+        ctx.accounts.lock_state.is_open = false;
         Ok(())
     }
     pub fn unlock(ctx: Context<Lock>) -> Result<()> {
-        if ctx.accounts.lock_state.authority != *ctx.accounts.authority.key {
-            return Err(ErrorCode::Unauthorized.into());
-        }
-        let lock_state = &mut ctx.accounts.lock_state;
-        lock_state.is_open = true;
+        ctx.accounts.lock_state.is_open = true;
         Ok(())
     }
 }
@@ -33,7 +28,6 @@ pub struct Initialize<'info> {
     #[account(mut)]
     pub authority: Signer<'info>,
     pub system_program: Program<'info, System>,
-    pub rent: Sysvar<'info, Rent>,
 }
 
 #[derive(Accounts)]
@@ -44,7 +38,7 @@ pub struct Lock<'info> {
     /// CHECK: This is not dangerous because we don't read or write from this account
     pub authority: AccountInfo<'info>,
 }
-/// CHECK
+
 #[account]
 pub struct LockState {
     pub is_open: bool,

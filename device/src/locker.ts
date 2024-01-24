@@ -12,7 +12,7 @@ const provider = new anchor.AnchorProvider(connection, wallet, {
 });
 anchor.setProvider(provider);
 
-const program = new Program<SoLocker>(IDL, "j3JYCYaDNg1VRwGBywm6gf7QiQUQaEu8Xuxv2Sueoh4", { connection })
+const program = new Program<SoLocker>(IDL, "3xf2u5H4qGaQJbrW5gkcpE38NrXJN5Duru7wtdkjHbcX", { connection })
 
 console.log("Program ID", program.programId.toString());
 

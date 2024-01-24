@@ -8,7 +8,7 @@ describe("solocker", () => {
 
   const program = anchor.workspace.Solocker as Program<Solocker>;
   const wallet = anchor.workspace.Solocker.provider.wallet
-
+  console.log("Program ID", program.programId.toString());
   it("Is initialized!", async () => {
     const accountPDA = await anchor.web3.PublicKey.findProgramAddressSync(
       [
@@ -25,6 +25,11 @@ describe("solocker", () => {
           authority: wallet.publicKey,
           systemProgram: anchor.web3.SystemProgram.programId,
           rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+        } as {
+          lockState: anchor.web3.PublicKey;
+          authority: anchor.web3.PublicKey;
+          systemProgram: anchor.web3.PublicKey;
+          rent: anchor.web3.PublicKey;
         },
       ).rpc();
       console.log("Initialize transaction signature: ", initializeTransaction);
@@ -32,20 +37,20 @@ describe("solocker", () => {
       console.log(e);
     }
 
-    // const LockTransaction = await program.methods.lock().accounts(
-    //   {
-    //     lockState: accountPDA,
-    //     authority: wallet.publicKey
-    //   },
-    // ).rpc();
-    // console.log("Lock transaction signature: ", LockTransaction);
-    // const UnlockTransaction = await program.methods.unlock().accounts(
-    //   {
-    //     lockState: accountPDA,
-    //     authority: wallet.publicKey
-    //   },
-    // ).rpc();
-    // console.log("Unlock transaction signature: ", UnlockTransaction);
+    const LockTransaction = await program.methods.lock().accounts(
+      {
+        lockState: accountPDA,
+        authority: wallet.publicKey
+      },
+    ).rpc();
+    console.log("Lock transaction signature: ", LockTransaction);
+    const UnlockTransaction = await program.methods.unlock().accounts(
+      {
+        lockState: accountPDA,
+        authority: wallet.publicKey
+      },
+    ).rpc();
+    console.log("Unlock transaction signature: ", UnlockTransaction);
 
     assert(accountPDA != null, "Account PDA is null");
 
